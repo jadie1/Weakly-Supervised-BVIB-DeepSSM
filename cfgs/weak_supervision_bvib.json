@@ -1,0 +1,64 @@
+{
+  "model_name": "bvib",
+  "dataset": "liver",
+  "train_size": 1,
+  "num_latent_dim": 115,
+  "out_dir": "experiments/",
+  "device": "cuda:0",
+  "encoder": {
+    "stochastic": true,
+    "covariance_type": "diagonal",
+    "offset": false
+  },
+  "decoder": {
+    "pca_intialized": false,
+    "fixed": false,
+    "linear": false,
+    "stochastic": false
+  },
+  "loss": {
+    "function": "vib_chamfer_burnin",
+    "supervised_latent": false,
+    "params": {
+      "beta": 0.01,
+      "initiate_stochastic": 50,
+      "complete_stochastic": 100,
+      "cd_reg_weight":1
+    }
+  },
+  "trainer": {
+    "epochs": 5000,
+    "learning_rate": 1e-06,
+    "num_samples": 30,
+    "batch_size": 12,
+    "histogram_aug": false,
+    "noise_aug": true,
+    "decay_lr": {
+      "enabled": false
+    },
+    "early_stop": {
+      "enabled": true,
+      "patience": 50,
+      "start_epoch": 150
+    },
+    "weight_decay": 0,
+    "gradient_clipping": true,
+    "save_iter_freq": 0
+  },
+  "dropout": {
+    "type": "concrete",
+    "params": {
+      "start_epoch": 125,
+      "lengthscale": 0.001,
+      "init_rate": 0.1,
+      "size": 1
+    }
+  },
+  "batch_ensemble": {
+    "enabled": false,
+    "mixup": false
+  },
+  "initialize_model":null,
+  "use_best_model": true,
+  "best_model_epochs": 1
+}
